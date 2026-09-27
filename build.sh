@@ -21,6 +21,7 @@ CLANG="$(xcrun --sdk iphoneos --find clang)"
   -framework Metal \
   -framework MetalKit \
   -framework QuartzCore \
+  -framework CoreGraphics \
   -o "$OUT/YYModelStandalone.dylib"
 file "$OUT/YYModelStandalone.dylib"
 xcrun vtool -show-build "$OUT/YYModelStandalone.dylib" || true
