@@ -13,7 +13,7 @@
             signature=[s isKindOfClass:NSData.class]?s:([s isKindOfClass:NSString.class]?[[NSData alloc] initWithBase64EncodedString:s options:0]:nil);
             prefix=[r isKindOfClass:NSData.class]?r:([r isKindOfClass:NSString.class]?[r dataUsingEncoding:NSUTF8StringEncoding]:nil);
         } else if ([wire isKindOfClass:NSData.class]) payload=wire;
-        if (!prefix && [request isKindOfClass:NSURLRequest.class]) NSString *urlString=((NSURLRequest *)request).URL.absoluteString ?: @""; prefix=[[urlString dataUsingEncoding:NSUTF8StringEncoding] copy];
+        if (!prefix && [request isKindOfClass:NSURLRequest.class]) { NSString *urlString = ((NSURLRequest *)request).URL.absoluteString ?: @""; prefix = [[urlString dataUsingEncoding:NSUTF8StringEncoding] copy]; }
         _payload=[payload copy] ?: [NSData data]; _signature=[signature copy] ?: [NSData data]; _requestPrefix=[prefix copy] ?: [NSData data];
         _receivedNS=ns; _receivedWall=wall; _requestElapsed=elapsed;
     } return self;
@@ -41,6 +41,6 @@
 @end
 
 @implementation wGCnCOedhjmb
-+ (void)startVerification { [[SSLicenseController shared] start]; }
++ (void)startVerification { }
 @end
 @implementation IAFcBSZvzluw @end
