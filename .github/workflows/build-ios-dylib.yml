@@ -1,0 +1,32 @@
+name: Build iOS dylib
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main, master ]
+
+jobs:
+  build:
+    runs-on: macos-15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Select Xcode
+        run: sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
+
+      - name: Build arm64 iOS dylib
+        run: ./build.sh
+
+      - name: Package
+        run: |
+          mkdir -p artifact
+          cp build/YYModelStandalone.dylib artifact/
+          shasum -a 256 artifact/YYModelStandalone.dylib > artifact/SHA256.txt
+
+      - name: Upload dylib
+        uses: actions/upload-artifact@v4
+        with:
+          name: YYModelStandalone-arm64
+          path: artifact/
+          if-no-files-found: error
