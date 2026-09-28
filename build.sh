@@ -22,6 +22,7 @@ CLANG="$(xcrun --sdk iphoneos --find clang)"
   -framework Metal \
   -framework MetalKit \
   -framework QuartzCore \
+  -framework CoreGraphics \
   -o "$OUT/YYModelStandalone.dylib"
 /usr/bin/codesign --force --sign - --timestamp=none "$OUT/YYModelStandalone.dylib"
 file "$OUT/YYModelStandalone.dylib"
