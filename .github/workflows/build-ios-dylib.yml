@@ -18,6 +18,11 @@ jobs:
       - name: Build arm64 iOS dylib
         run: ./build.sh
 
+      - name: Verify automatic entry point and signature
+        run: |
+          otool -l build/YYModelStandalone.dylib | grep -A4 __mod_init_func
+          codesign --verify --verbose=2 build/YYModelStandalone.dylib
+
       - name: Package
         run: |
           mkdir -p artifact
