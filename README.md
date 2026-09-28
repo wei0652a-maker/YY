@@ -2,6 +2,14 @@
 
 Functional reconstruction based on the supplied original arm64 Mach-O and recovered Objective-C metadata.
 
+## v6.1 automatic startup fix
+- Added `StandaloneBootstrap.m` with a Mach-O constructor, so the library now starts after it is loaded instead of only registering passive Objective-C classes.
+- Automatically locates the active application window on iOS 13 or newer.
+- Adds a small `YY` launcher and a status panel backed by the recovered Metal view. The rest of the application remains touchable.
+- Shows a short non-blocking HUD on first successful attachment and records touch-bridge coordinates in the panel.
+- Emits `[YYModelStandalone]` console messages and `YYStandaloneBootstrapLoaded` after window attachment for runtime diagnosis.
+- The Xcode build now applies and verifies an ad-hoc code signature. The containing IPA still needs to be re-signed after injection.
+
 ## Scope
 - Authorization/server/signature verification is intentionally excluded from the functional recovery target and is not part of the build path.
 - `fMUAsOMbCjhB` is retained as the verified MTKView/MTKViewDelegate input/render bridge. No invented menu items are included.

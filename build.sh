@@ -15,13 +15,15 @@ CLANG="$(xcrun --sdk iphoneos --find clang)"
   "$ROOT/Sources/StandaloneUI.m" \
   "$ROOT/Sources/StandaloneMetal.m" \
   "$ROOT/Sources/StandaloneSupport.m" \
+  "$ROOT/Sources/StandaloneBootstrap.m" \
   -framework Foundation \
   -framework UIKit \
   -framework WebKit \
   -framework Metal \
   -framework MetalKit \
   -framework QuartzCore \
-  -framework CoreGraphics \
   -o "$OUT/YYModelStandalone.dylib"
+/usr/bin/codesign --force --sign - --timestamp=none "$OUT/YYModelStandalone.dylib"
 file "$OUT/YYModelStandalone.dylib"
 xcrun vtool -show-build "$OUT/YYModelStandalone.dylib" || true
+/usr/bin/codesign --verify --verbose=2 "$OUT/YYModelStandalone.dylib"
